@@ -1,8 +1,8 @@
 import time
 import pymongo
-from sqlhelper import SqlHelper
+from .sqlhelper import SqlHelper
 
-from config import DB_CONFIG
+from .config import DB_CONFIG
 
 
 class MongoHelper(SqlHelper):
