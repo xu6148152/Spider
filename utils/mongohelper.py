@@ -79,11 +79,12 @@ class MongoHelper(SqlHelper):
         self.client.close()
 
     def count(self, conditions=None):
-        conditions = dict(conditions)
-        return self.collection.find(conditions).count()
+        if conditions is not None:
+            conditions = dict(conditions)
+            return self.collection.find(conditions).count()
+        return 0
 
-
-if __name__ == '__main__':
+def main():
     sql_helper = MongoHelper()
     sql_helper.init_db('zhihu', 'zhihu_all')
     pre = sql_helper.count()
@@ -92,3 +93,7 @@ if __name__ == '__main__':
     now = sql_helper.count()
     url = sql_helper.select_home_url({'user_name': 'Jack'}, count=100, page=1)
     print([item for item in url])
+
+
+if __name__ == '__main__':
+    main()
