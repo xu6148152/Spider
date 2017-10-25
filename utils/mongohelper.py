@@ -18,6 +18,10 @@ class MongoHelper(SqlHelper):
     def drop_db(self):
         self.client.drop_database(self.db)
 
+    def insert_zh(self, value=None):
+        if value:
+            self.collection.insert(value)
+            
     def insert(self, value=None):
         if value:
             newsObj = dict(title=value['title'], content=value['content'], category=value['category'], secCategory=value['secCategory'],
@@ -51,7 +55,7 @@ class MongoHelper(SqlHelper):
         return results, items
 
     def select_home_url(self, conditions=None, page=None, count=0):
-        return self.collection.find(conditions, {'_id', 0}, limit=count).skip(int(page))
+        return self.collection.find(conditions, {'_id': 0}, limit=count).skip(int(page))
 
     def select(self, count=None, conditions=None, page=None):
         if count:
